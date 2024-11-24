@@ -10,6 +10,7 @@ const CryptoTrend = () => {
   const [topTrends, setTopTrends] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isRefreshDisabled, setIsRefreshDisabled] = useState(false); // Controle do botão de refresh
 
   // Fetch todas as moedas disponíveis na Binance
   useEffect(() => {
@@ -55,7 +56,7 @@ const CryptoTrend = () => {
       setTrendData({
         openPrice,
         closePrice,
-        percentageChange: percentageChange.toFixed(2),
+        percentageChange: percentageChange.toFixed(3),
       });
     // eslint-disable-next-line no-unused-vars
     } catch (err) {
@@ -108,14 +109,21 @@ const CryptoTrend = () => {
     } finally {
       setLoading(false);
     }
-  }, [coins]); // Atualiza somente quando coins mudar
+  }, [coins]);
 
   // Fetch Top 10 ao carregar o componente
   useEffect(() => {
     if (coins.length > 0) {
       fetchTopTrends();
     }
-  }, [coins, fetchTopTrends]); // Agora fetchTopTrends está listado como dependência
+  }, [coins, fetchTopTrends]);
+
+  // Função para atualizar o ranking e desativar o botão por 1 minuto
+  const handleRefreshClick = () => {
+    fetchTopTrends();
+    setIsRefreshDisabled(true);
+    setTimeout(() => setIsRefreshDisabled(false), 60000); // Desativa o botão por 1 minuto
+  };
 
   return (
     <div className="container mt-4">
@@ -149,14 +157,21 @@ const CryptoTrend = () => {
       {trendData && (
         <div className="mt-4">
           <h4>Trend Data for last 10 minutes ({selectedCoin})</h4>
-          <p>Opening Price: ${trendData.openPrice.toFixed(2)}</p>
-          <p>Closing Price: ${trendData.closePrice.toFixed(2)}</p>
+          <p>Opening Price: ${trendData.openPrice.toFixed(4)}</p>
+          <p>Closing Price: ${trendData.closePrice.toFixed(4)}</p>
           <p>Percentage Change (10m): {trendData.percentageChange}%</p>
         </div>
       )}
 
       <div className="mt-5">
         <h3>Top 10 Cryptos by 10-Minute Percentage Change</h3>
+        <button
+          className="btn btn-secondary mb-3"
+          onClick={handleRefreshClick}
+          disabled={isRefreshDisabled}
+        >
+          Refresh Ranking
+        </button>
         {topTrends.length === 0 && !loading && (
           <p>No trends available. Please try again later.</p>
         )}
