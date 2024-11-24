@@ -8,7 +8,8 @@ const CryptoTrend = () => {
   const [coins, setCoins] = useState([]);
   const [selectedCoin, setSelectedCoin] = useState('');
   const [trendData, setTrendData] = useState(null);
-  const [topTrends, setTopTrends] = useState([]);
+  const [topGainers, setTopGainers] = useState([]); // Maiores subidas
+  const [topLosers, setTopLosers] = useState([]); // Maiores quedas
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [isRefreshDisabled, setIsRefreshDisabled] = useState(false); // Controle do botão de refresh
@@ -101,11 +102,12 @@ const CryptoTrend = () => {
         })
       );
 
-      // Ordena pelas maiores variações e obtém o Top 10
+      // Ordena pelas maiores subidas e quedas
       const sortedTrends = responses.sort(
         (a, b) => b.percentageChange - a.percentageChange
       );
-      setTopTrends(sortedTrends.slice(0, 10));
+      setTopGainers(sortedTrends.slice(0, 10)); // Top 10 Gainers
+      setTopLosers(sortedTrends.slice(-10).reverse()); // Top 10 Losers (invertendo para ordem crescente)
     } catch (err) {
       console.error('Erro ao buscar tendências:', err);
       setError('Failed to fetch top trends. Please try again.');
@@ -114,7 +116,7 @@ const CryptoTrend = () => {
     }
   }, [coins]);
 
-  // Fetch Top 10 ao carregar o componente
+  // Fetch Top Gainers e Losers ao carregar o componente
   useEffect(() => {
     if (coins.length > 0) {
       fetchTopTrends();
@@ -167,7 +169,7 @@ const CryptoTrend = () => {
       )}
 
       <div className="mt-5">
-        <h3>Top 10 Cryptos by 10-Minute Percentage Change</h3>
+        <h3>Top 10 Gainers and Losers by 10-Minute Percentage Change</h3>
         <button
           className="btn btn-secondary mb-3"
           onClick={handleRefreshClick}
@@ -175,26 +177,45 @@ const CryptoTrend = () => {
         >
           Refresh Ranking
         </button>
-        {topTrends.length === 0 && !loading && (
+
+        {topGainers.length === 0 && topLosers.length === 0 && !loading && (
           <p>No trends available. Please try again later.</p>
         )}
-        <ul className="list-group">
-          {topTrends.map((trend, index) => (
-            <li
-              key={trend.symbol}
-              className="list-group-item d-flex justify-content-between align-items-center"
-            >
-              {index + 1}. {trend.name}
-              <span
-                className={`badge ${
-                  trend.percentageChange > 0 ? 'bg-success' : 'bg-danger'
-                } rounded-pill`}
-              >
-                {trend.percentageChange}%
-              </span>
-            </li>
-          ))}
-        </ul>
+
+        <div className="row">
+          <div className="col-md-6">
+            <h4>Top 10 Gainers</h4>
+            <ul className="list-group">
+              {topGainers.map((trend, index) => (
+                <li
+                  key={trend.symbol}
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  {index + 1}. {trend.name}
+                  <span className="badge bg-success rounded-pill">
+                    +{trend.percentageChange}%
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="col-md-6">
+            <h4>Top 10 Losers</h4>
+            <ul className="list-group">
+              {topLosers.map((trend, index) => (
+                <li
+                  key={trend.symbol}
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  {index + 1}. {trend.name}
+                  <span className="badge bg-danger rounded-pill">
+                    {trend.percentageChange}%
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
