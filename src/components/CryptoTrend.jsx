@@ -156,8 +156,7 @@ const CryptoTrend = () => {
         />
       </div>
 
-      {loading && <div className="alert alert-info mt-3">Loading...</div>}
-      {error && <div className="alert alert-danger mt-3">{error}</div>}
+      
 
       {trendData && (
         <div className="mt-4">
@@ -178,6 +177,9 @@ const CryptoTrend = () => {
           Refresh Ranking
         </button>
 
+        {loading && <div className="alert alert-info mt-3">Loading...</div>}
+      {error && <div className="alert alert-danger mt-3">{error}</div>}
+      
         {topGainers.length === 0 && topLosers.length === 0 && !loading && (
           <p>No trends available. Please try again later.</p>
         )}

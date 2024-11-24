@@ -100,7 +100,7 @@ const Ranking = () => {
       {error && <div className="alert alert-danger mt-3">{error}</div>}
 
       {!loading && !error && (
-        <div className="row mt-5">
+        <div className="row mt-1">
           <div className="col-md-6 mt-3">
             <h4>Top 5 Gainers</h4>
             <ul className="list-group">
