@@ -59,10 +59,18 @@ const Analyze = () => {
       const highestPrice = Math.max(...highPrices);
       const lowestPrice = Math.min(...lowPrices);
 
+      const highestIndex = highPrices.indexOf(highestPrice); // Índice do maior preço
+      const lowestIndex = lowPrices.indexOf(lowestPrice); // Índice do menor preço
+
       const openPrice = parseFloat(minuteData[0][1]);
       const closePrice = parseFloat(minuteData[minuteData.length - 1][4]);
       const percentageChange = ((closePrice - openPrice) / openPrice) * 100;
       const currentPrice = closePrice.toFixed(4);
+
+      // Lógica para definir o percentual com base na ordem de maior/menor preço
+      const highLowPercentageChange =
+        ((highestPrice - lowestPrice) / lowestPrice) *
+        (highestIndex > lowestIndex ? 1 : -1);
 
       // Busca dados das últimas 24 horas
       const dailyResponse = await axios.get(
@@ -84,6 +92,7 @@ const Analyze = () => {
       setTrendData({
         highestPrice,
         lowestPrice,
+        highLowPercentageChange: highLowPercentageChange.toFixed(2), // Percentual com base na ordem
         percentageChange: percentageChange.toFixed(2),
         currentPrice,
       });
@@ -129,7 +138,7 @@ const Analyze = () => {
           <h4>Trend Data for last 60 minutes ({selectedCoin})</h4>
           <p>Highest Price (60m): ${trendData.highestPrice.toFixed(4)}</p>
           <p>Lowest Price (60m): ${trendData.lowestPrice.toFixed(4)}</p>
-          
+                    
           <p className="fs-5 mb-5 text-info fw-bold">
             Percentage Change (60m): {trendData.percentageChange}%
           </p>
