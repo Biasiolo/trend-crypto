@@ -1,6 +1,6 @@
 body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(90deg, #cfcfcf, #f6f6f6, #fff, #f6f6f6, #cfcfcf);
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(90deg, #d1d1d1, #f6f6f6, #fff, #f6f6f6, #d1d1d1);
 
   margin: 0;
   padding: 0;
