@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import Select from 'react-select'; // Importa React-Select
 import { fetchCoins } from '../utils/coins';
 
 const CryptoTrend = () => {
@@ -28,8 +29,10 @@ const CryptoTrend = () => {
   }, []);
 
   // Fetch dados da moeda selecionada
-  const fetchTrendData = async () => {
-    if (!selectedCoin) {
+  const fetchTrendData = async (coinSymbol) => {
+    const symbol = coinSymbol || selectedCoin; // Usa o parâmetro ou o estado selecionado
+
+    if (!symbol) {
       setError('Please select a cryptocurrency.');
       return;
     }
@@ -41,7 +44,7 @@ const CryptoTrend = () => {
         `https://api.binance.com/api/v3/klines`,
         {
           params: {
-            symbol: selectedCoin,
+            symbol,
             interval: '1m',
             limit: 10,
           },
@@ -125,31 +128,31 @@ const CryptoTrend = () => {
     setTimeout(() => setIsRefreshDisabled(false), 60000); // Desativa o botão por 1 minuto
   };
 
+  // Formatar moedas para uso no React-Select
+  const coinOptions = coins.map((coin) => ({
+    value: coin.symbol,
+    label: coin.name,
+  }));
+
   return (
     <div className="container mt-4">
       <h2>Analyze Crypto Trends</h2>
 
       <div className="mb-3">
-        <label htmlFor="cryptoSelect" className="form-label">
-          Select Cryptocurrency
+        <label htmlFor="cryptoSearch" className="form-label">
+          Search and Select Cryptocurrency
         </label>
-        <select
-          id="cryptoSelect"
-          className="form-select"
-          value={selectedCoin}
-          onChange={(e) => setSelectedCoin(e.target.value)}
-        >
-          <option value="">-- Select --</option>
-          {coins.map((coin) => (
-            <option key={coin.symbol} value={coin.symbol}>
-              {coin.name}
-            </option>
-          ))}
-        </select>
+        <Select
+          id="cryptoSearch"
+          options={coinOptions}
+          onChange={(selectedOption) => {
+            setSelectedCoin(selectedOption.value);
+            fetchTrendData(selectedOption.value); // Inicia o fetch ao selecionar
+          }}
+          isSearchable={true} // Habilita busca
+          placeholder="Search for a cryptocurrency..."
+        />
       </div>
-      <button className="btn btn-primary" onClick={fetchTrendData}>
-        Get Trend
-      </button>
 
       {loading && <div className="alert alert-info mt-3">Loading...</div>}
       {error && <div className="alert alert-danger mt-3">{error}</div>}
