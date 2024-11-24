@@ -10,6 +10,7 @@ const Ranking = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isRefreshDisabled, setIsRefreshDisabled] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState(''); // Estado para última atualização
 
   // Fetch todas as moedas disponíveis no mercado futuro perpétuo
   useEffect(() => {
@@ -40,7 +41,7 @@ const Ranking = () => {
               params: {
                 symbol: coin.symbol,
                 interval: '1d', // Intervalo de 1 dia
-                limit: 2, // Apenas o último fechamento diário
+                limit: 1, // Apenas o último fechamento diário
               },
             }
           );
@@ -53,6 +54,7 @@ const Ranking = () => {
           return {
             symbol: coin.symbol,
             name: coin.name,
+            closePrice: closePrice.toFixed(4), // Adiciona o último preço
             percentageChange: percentageChange.toFixed(2),
           };
         })
@@ -64,6 +66,7 @@ const Ranking = () => {
       );
       setTopGainers(sortedTrends.slice(0, 5)); // Top 5 Gainers
       setTopLosers(sortedTrends.slice(-5).reverse()); // Top 5 Losers
+      setLastUpdated(new Date().toLocaleString()); // Atualiza a hora da última atualização
     } catch (err) {
       console.error('Erro ao buscar ranking geral:', err);
       setError('Failed to fetch ranking data. Please try again.');
@@ -86,15 +89,18 @@ const Ranking = () => {
   };
 
   return (
-    <div className="container mb-5">
-      <h2>General Market Ranking (USD-M Futures - Last 24hr)</h2>
+    <div className="container mt-5 mb-5">
+      <h2 className="text-center">General Market Ranking (USD-M Futures - Current daily close)</h2>
       <button
-          className="btn btn-info mb-3"
-          onClick={handleRefreshClick}
-          disabled={isRefreshDisabled}
-        >
-          Refresh Ranking
-        </button>
+        className="btn btn-info mb-3"
+        onClick={handleRefreshClick}
+        disabled={isRefreshDisabled}
+      >
+        Refresh Ranking
+      </button>
+      {lastUpdated && (
+        <p className="text-muted">Last updated: {lastUpdated}</p>
+      )}
 
       {loading && <div className="alert alert-info mt-3">Loading...</div>}
       {error && <div className="alert alert-danger mt-3">{error}</div>}
@@ -107,9 +113,9 @@ const Ranking = () => {
               {topGainers.map((trend, index) => (
                 <li
                   key={trend.symbol}
-                  className="list-group-item d-flex justify-content-between align-items-center"
+                  className="list-group-item d-flex justify-content-between align-items-center fw-bold"
                 >
-                  {index + 1}. {trend.name}
+                  {index + 1}. {trend.name} - ${trend.closePrice}
                   <span className="badge bg-success rounded-pill">
                     +{trend.percentageChange}%
                   </span>
@@ -123,9 +129,9 @@ const Ranking = () => {
               {topLosers.map((trend, index) => (
                 <li
                   key={trend.symbol}
-                  className="list-group-item d-flex justify-content-between align-items-center"
+                  className="list-group-item d-flex justify-content-between align-items-center fw-bold"
                 >
-                  {index + 1}. {trend.name}
+                  {index + 1}. {trend.name} - ${trend.closePrice}
                   <span className="badge bg-danger rounded-pill">
                     {trend.percentageChange}%
                   </span>
