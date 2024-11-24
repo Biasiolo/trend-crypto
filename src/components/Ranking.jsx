@@ -87,7 +87,7 @@ const Ranking = () => {
 
       {!loading && !error && (
         <div className="row mt-5">
-          <div className="col-md-6">
+          <div className="col-md-6 mt-3">
             <h4>Top 5 Gainers</h4>
             <ul className="list-group">
               {topGainers.map((trend, index) => (
@@ -103,7 +103,7 @@ const Ranking = () => {
               ))}
             </ul>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6 mt-3">
             <h4>Top 5 Losers</h4>
             <ul className="list-group">
               {topLosers.map((trend, index) => (
