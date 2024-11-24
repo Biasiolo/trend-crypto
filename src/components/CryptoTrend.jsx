@@ -183,7 +183,7 @@ const CryptoTrend = () => {
         )}
 
         <div className="row mb-5">
-          <div className="col-md-6">
+          <div className="mt-4 col-md-6">
             <h4>Top 10 Gainers</h4>
             <ul className="list-group">
               {topGainers.map((trend, index) => (
@@ -199,7 +199,7 @@ const CryptoTrend = () => {
               ))}
             </ul>
           </div>
-          <div className="col-md-6">
+          <div className="mt-4 col-md-6">
             <h4>Top 10 Losers</h4>
             <ul className="list-group">
               {topLosers.map((trend, index) => (
