@@ -9,6 +9,7 @@ const Ranking = () => {
   const [topLosers, setTopLosers] = useState([]); // Maiores quedas
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isRefreshDisabled, setIsRefreshDisabled] = useState(false);
 
   // Fetch todas as moedas disponíveis no mercado futuro perpétuo
   useEffect(() => {
@@ -78,9 +79,22 @@ const Ranking = () => {
     }
   }, [coins, fetchRankingData]);
 
+  const handleRefreshClick = () => {
+    fetchRankingData();
+    setIsRefreshDisabled(true);
+    setTimeout(() => setIsRefreshDisabled(false), 60000); // Desativa o botão por 1 minuto
+  };
+
   return (
     <div className="container mb-5">
       <h2>General Market Ranking (USD-M Futures - Last 24hr)</h2>
+      <button
+          className="btn btn-info mb-3"
+          onClick={handleRefreshClick}
+          disabled={isRefreshDisabled}
+        >
+          Refresh Ranking
+        </button>
 
       {loading && <div className="alert alert-info mt-3">Loading...</div>}
       {error && <div className="alert alert-danger mt-3">{error}</div>}

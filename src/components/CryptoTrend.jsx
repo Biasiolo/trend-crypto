@@ -171,7 +171,7 @@ const CryptoTrend = () => {
       <div className="mt-5">
         <h3>Top 10 Gainers and Losers by 10-Minute Percentage Change</h3>
         <button
-          className="btn btn-secondary mb-3"
+          className="btn btn-info mb-3"
           onClick={handleRefreshClick}
           disabled={isRefreshDisabled}
         >
