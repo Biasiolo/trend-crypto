@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Select from 'react-select'; // Importa React-Select
-import { fetchCoins } from '../utils/coins';
+import { fetchFuturesCoins } from '../utils/futuresCoins'; // Nova função para moedas do mercado futuro
 
 const CryptoTrend = () => {
   const [coins, setCoins] = useState([]);
@@ -14,15 +14,15 @@ const CryptoTrend = () => {
   const [loading, setLoading] = useState(false);
   const [isRefreshDisabled, setIsRefreshDisabled] = useState(false); // Controle do botão de refresh
 
-  // Fetch todas as moedas disponíveis na Binance
+  // Fetch todas as moedas disponíveis no mercado futuro perpétuo
   useEffect(() => {
     const loadCoins = async () => {
       try {
-        const coinList = await fetchCoins();
+        const coinList = await fetchFuturesCoins(); // Atualiza para a função de futuros
         setCoins(coinList);
       } catch (err) {
-        console.error('Erro ao buscar moedas:', err);
-        setError('Failed to fetch coin list. Please try again.');
+        console.error('Erro ao buscar moedas de futuros:', err);
+        setError('Failed to fetch futures coin list. Please try again.');
       }
     };
 
@@ -42,7 +42,7 @@ const CryptoTrend = () => {
       setError('');
       setLoading(true);
       const response = await axios.get(
-        `https://api.binance.com/api/v3/klines`,
+        `https://fapi.binance.com/fapi/v1/klines`, // Endpoint do mercado futuro
         {
           params: {
             symbol,
@@ -79,7 +79,7 @@ const CryptoTrend = () => {
       const responses = await Promise.all(
         coins.map(async (coin) => {
           const response = await axios.get(
-            `https://api.binance.com/api/v3/klines`,
+            `https://fapi.binance.com/fapi/v1/klines`, // Endpoint do mercado futuro
             {
               params: {
                 symbol: coin.symbol,
@@ -138,7 +138,7 @@ const CryptoTrend = () => {
 
   return (
     <div className="container mt-4">
-      <h2>Analyze Crypto Trends</h2>
+      <h2>Analyze Crypto Trends (USD-M Futures)</h2>
 
       <div className="mb-3">
         <label htmlFor="cryptoSearch" className="form-label">
