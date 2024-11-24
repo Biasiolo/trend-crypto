@@ -182,7 +182,7 @@ const CryptoTrend = () => {
           <p>No trends available. Please try again later.</p>
         )}
 
-        <div className="row">
+        <div className="row mb-5">
           <div className="col-md-6">
             <h4>Top 10 Gainers</h4>
             <ul className="list-group">
