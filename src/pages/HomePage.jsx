@@ -126,7 +126,7 @@ const HomePage = () => {
       {/* Botões de navegação */}
       <div className="d-flex justify-content-center gap-3 my-5">
         <button
-          className={`btn btn-outline-dark flex-grow-1 ${activeComponent === 'futures' ? 'active' : ''}`}
+          className={`btn btn-outline-dark flex-grow-1  ${activeComponent === 'futures' ? 'active' : ''}`}
           style={{ maxWidth: '200px' }}
           onClick={() => setActiveComponent('futures')}
         >
@@ -164,17 +164,17 @@ const HomePage = () => {
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content bg-dark text-white">
             <div className="modal-header">
-              <h5 className="modal-title">Support Trend Crypto</h5>
+              <h5 className="modal-title text-info">Support Trend Crypto</h5>
               <button type="button" className="btn-close" onClick={handleCloseModal}></button>
             </div>
             <div className="modal-body text-center">
               <p>
                 This site was an independent development. Help us keep Trend Crypto free and ad-free. Your donations support development, new features, and hosting costs.
               </p>
-              <div className="bg-info rounded text-dark p-2 align-items-center justify-content-center text-center fw-bold">
+              <div className="bg-secondary-subtle rounded text-dark p-2 align-items-center justify-content-center text-center fw-bold">
 
 
-                <p className="fs-5">Donate</p>
+                <h3 className="fs-4 p-2">Donate</h3>
                 <p className="my-2"><SiTether /> USDT | <FaEthereum /> ETH | <SiBinance /> BNB | <SiSolana /> SOL | <SiDogecoin /> DOGE </p>
                 <p className="m-0">Network: BSC BNB Smart Chain (BEP20)</p>
 
@@ -184,7 +184,7 @@ const HomePage = () => {
                 </p>
                 {/* Botão para copiar */}
                 <button
-                  className="btn btn-outline-dark btn-sm mb-2"
+                  className="bg-info btn btn-outline-dark btn-sm mb-3"
                   onClick={() => navigator.clipboard.writeText("0x3b4ee1071c93fb1af20e883cb6dc46867e1dd20d")}
                 >
                   Copy Address
@@ -204,59 +204,82 @@ const HomePage = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-dark text-white mt-4 p-4 rounded">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-4 mb-3">
-              <h5>Quick Links</h5>
-              <ul className="list-unstyled">
-                <li>
-                  <button
-                    className="btn btn-link text-white"
-                    onClick={() => setActiveComponent('futures')}
-                  >
-                    USD-M Futures
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="btn btn-link text-white"
-                    onClick={() => setActiveComponent('spot')}
-                  >
-                    Spot Market
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="btn btn-link text-white"
-                    onClick={() => setActiveComponent('news')}
-                  >
-                    Crypto News
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <div className="col-md-4 mb-3">
-              <h5>About Trend Crypto</h5>
-              <p>
-                Trend Crypto provides real-time cryptocurrency trends, news, and insights to help traders make informed decisions.
-              </p>
-            </div>
-            <div className="col-md-4 mb-3">
-              <h5>Contact & Socials</h5>
-              <p>Email: support@trendcrypto.com</p>
-              <p>Follow us on:</p>
-              <div className="d-flex gap-2">
-                <a href="#" className="btn btn-outline-light btn-sm">Twitter</a>
-                <a href="#" className="btn btn-outline-light btn-sm">LinkedIn</a>
-                <a href="#" className="btn btn-outline-light btn-sm">GitHub</a>
-              </div>
-            </div>
-          </div>
-          <hr className="bg-light" />
-          <p className="text-center mb-0">&copy; 2024 Trend Crypto | All rights reserved.</p>
+      {/* Footer */}
+<footer className="bg-dark text-white mt-4 p-4 rounded">
+  <div className="container">
+    <div className="row">
+      {/* About Trend Crypto */}
+      <div className="col-md-3 mb-3 text-center">
+        <h5 className='text-info'>About Trend Crypto</h5>
+        <p>
+          Trend Crypto provides real-time cryptocurrency trends, news, and insights to help traders make informed decisions.
+        </p>
+      </div>
+
+
+      {/* Quick Links */}
+      <div className="col-md-3 mb-3 text-center">
+        <h5 className='text-info'>Quick Links</h5>
+        <ul className="list-unstyled">
+          <li>
+            <button
+              className="btn btn-link text-white"
+              onClick={() => setActiveComponent('futures')}
+            >
+              USD-M Futures
+            </button>
+          </li>
+          <li>
+            <button
+              className="btn btn-link text-white"
+              onClick={() => setActiveComponent('spot')}
+            >
+              Spot Market
+            </button>
+          </li>
+          <li>
+            <button
+              className="btn btn-link text-white"
+              onClick={() => setActiveComponent('news')}
+            >
+              Crypto News
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      
+
+      {/* Contact */}
+      <div className="col-md-3 mb-3 text-center">
+        <h5 className='text-info'>Contact</h5>
+        <p>Email: <a href="mailto:support@trendcrypto.com" className="text-white">support@trendcrypto.com</a></p>
+        <p>Follow us on:</p>
+        <div className="d-flex gap-2 justify-content-center text-center">
+          <a href="#" className="btn btn-outline-light btn-sm">Twitter</a>
+          <a href="#" className="btn btn-outline-light btn-sm">LinkedIn</a>
+          <a href="#" className="btn btn-outline-light btn-sm">GitHub</a>
         </div>
-      </footer>
+      </div>
+
+      {/* Support */}
+      <div className="col-md-3 mb-3 text-center">
+        <h5 className='text-info'>Support</h5>
+        <p>Your support keeps Trend Crypto free and ad-free.</p>
+        <button
+          className="btn btn-outline-info w-100"
+          onClick={() => setShowDonationModal(true)} // Abre o modal
+        >
+          Donate
+        </button>
+      </div>
+    </div>
+    <hr className="bg-light" />
+    <p className="text-center mb-0">&copy; 2024 Trend Crypto | All rights reserved.</p>
+  </div>
+</footer>
+
+
     </div>
   );
 };
