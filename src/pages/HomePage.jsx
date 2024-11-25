@@ -84,8 +84,8 @@ const HomePage = () => {
       </div>
 
       {/* Descrição do site */}
-      <div className="bg-dark text-white text-center mt-4 p-4 rounded">
-        <h2>Quick Analysis and Decisions!</h2>
+      <div className="bg-secondary-subtle text-dark text-center mt-4 p-4 rounded">
+        <h2 className="text-info-emphasis">Quick Analysis and Decisions!</h2>
         <p className="bannertext px-3">
           Trend Crypto is your essential tool for fast decision-making in cryptocurrency trading. Powered by real-time data from Binance, we help you track market movements, analyze gains and losses, and stay updated with the latest crypto trends. Our tools include top trends from the last 30 minutes, general rankings based on the current daily close, and detailed individual analyses to give you the edge in a fast-moving market.
         </p>
@@ -94,26 +94,26 @@ const HomePage = () => {
           <div className="row text-center alig-items-center rounded">
             <div className="col-md-3 col-sm-6">
               <div className="p-3">
-                <h5 className="text-info"><LuNewspaper /> Latest News</h5>
-                <p className="text-light mb-0">Stay updated with the latest cryptocurrency news</p>
+                <h5 className="text-info-emphasis"><LuNewspaper /> Latest News</h5>
+                <p className="text-dark mb-0">Stay updated with the latest cryptocurrency news</p>
               </div>
             </div>
             <div className="col-md-3 col-sm-6">
               <div className="p-3">
-                <h5 className="text-info"><TbBrandGoogleAnalytics /> Spot & Futures</h5>
-                <p className="text-light mb-0">Analyze the Spot and Futures markets effortlessly</p>
+                <h5 className="text-info-emphasis"><TbBrandGoogleAnalytics /> Spot & Futures</h5>
+                <p className="text-dark mb-0">Analyze the Spot and Futures markets effortlessly</p>
               </div>
             </div>
             <div className="col-md-3 col-sm-6">
               <div className="p-3">
-                <h5 className="text-info"><FaMoneyBillTrendUp /> Top Trends</h5>
-                <p className="text-light mb-0">Track the biggest movers in the last 30 minutes and current day</p>
+                <h5 className="text-info-emphasis"><FaMoneyBillTrendUp /> Top Trends</h5>
+                <p className="text-dark mb-0">Track the biggest movers in the last 30 minutes and current day</p>
               </div>
             </div>
             <div className="col-md-3 col-sm-6">
               <div className="p-3">
-                <h5 className="text-info"><PiCoinVertical /> Individual Analysis</h5>
-                <p className="text-light mb-0">Get detailed performance insights for each currency</p>
+                <h5 className="text-info-emphasis"><PiCoinVertical /> Individual Analysis</h5>
+                <p className="text-dark mb-0">Get detailed performance insights for each currency</p>
               </div>
             </div>
           </div>
