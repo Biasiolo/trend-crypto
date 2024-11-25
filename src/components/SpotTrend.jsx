@@ -91,10 +91,10 @@ const SpotTrend = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container my-5 pt-3">
       <h2 className="text-center">Top 10 Crypto Trends (Spot Market - Last 30 min)</h2>
       <button
-        className="btn btn-info mb-3"
+        className="btn btn-info my-3"
         onClick={handleRefreshClick}
         disabled={isRefreshDisabled}
       >

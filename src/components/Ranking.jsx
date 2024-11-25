@@ -89,10 +89,10 @@ const Ranking = () => {
   };
 
   return (
-    <div className="container mt-5 mb-5">
+    <div className="container my-5 pb-3">
       <h2 className="text-center">General Market Ranking (USD-M Futures - Current daily close)</h2>
       <button
-        className="btn btn-info mb-3"
+        className="btn btn-info my-3"
         onClick={handleRefreshClick}
         disabled={isRefreshDisabled}
       >
