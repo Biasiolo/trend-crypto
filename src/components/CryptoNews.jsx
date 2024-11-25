@@ -65,14 +65,20 @@ const CryptoNews = () => {
 
   return (
     <div className="container my-5">
-      <h2 className="text-center mb-4">Latest Crypto News</h2>
+        <div>
+  <h2 className="text-center fs-1 mb-4">Latest Crypto News</h2>
+  <p className="text-center fs-5 mb-5 text-muted">
+    Stay ahead in the crypto world with the latest updates and trends. Explore what´s moving the market right now!
+  </p>
+</div>
 
-      {/* Botão de Atualizar (Topo) */}
-      <div className="text-center mb-4">
-        <button className="btn btn-info" onClick={fetchNews} disabled={loading}>
-          {loading ? 'Updating...' : 'Update News'}
-        </button>
-      </div>
+{/* Botão de Atualizar (Topo) */}
+<div className="text-center mb-5">
+  <button className="btn btn-info" onClick={fetchNews} disabled={loading}>
+    {loading ? 'Updating...' : 'Update News'}
+  </button>
+</div>
+
 
       {loading && <div className="alert alert-info text-center">Loading news...</div>}
       {error && <div className="alert alert-danger text-center">{error}</div>}

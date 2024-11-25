@@ -1,7 +1,16 @@
 body {
   font-family: 'Roboto', sans-serif;
-  background: linear-gradient(90deg, #d1d1d1, #f6f6f6, #fff, #f6f6f6, #d1d1d1);
+  background: linear-gradient(90deg, #d1d1d1ee, #f0f0f0, #fcfcfc, #fff, #fff, #fff, #fcfcfc, #f0f0f0, #d1d1d1ee);
 
   margin: 0;
   padding: 0;
+}
+
+.key {
+  font-size: 0.93rem;
+  max-width: 100%;
+}
+
+.bannertext {
+  font-size: 1.15rem;
 }
