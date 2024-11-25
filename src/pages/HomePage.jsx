@@ -144,7 +144,7 @@ const HomePage = () => {
           style={{ maxWidth: '200px' }}
           onClick={() => setActiveComponent('news')}
         >
-          Crypto News
+          Cryptos News
         </button>
       </div>
 
@@ -169,7 +169,7 @@ const HomePage = () => {
             </div>
             <div className="modal-body text-center">
               <p>
-                This site was an independent development. Help us keep Trend Crypto free and ad-free. Your donations support development, new features, and hosting costs.
+                This website was an independent development. Help us keep Trend Crypto free and ad-free. Your donations support development, new features, and hosting costs.
               </p>
               <div className="bg-secondary-subtle rounded text-dark p-2 align-items-center justify-content-center text-center fw-bold">
 
