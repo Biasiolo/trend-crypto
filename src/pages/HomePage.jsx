@@ -28,7 +28,7 @@ const HomePage = () => {
   // Temporizadores para exibir o modal
   useEffect(() => {
     const firstTimer = setTimeout(() => setShowDonationModal(true), 30000); // 45 segundos
-    const recurringTimer = setInterval(() => setShowDonationModal(true), 300000); // 3 minutos
+    const recurringTimer = setInterval(() => setShowDonationModal(true), 600000); // 
 
     return () => {
       clearTimeout(firstTimer);
