@@ -1,12 +1,12 @@
-// Analyze.jsx
+// SpotAnalyze.jsx
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
-import { fetchFuturesCoins } from '../utils/futuresCoins';
+import { fetchSpotCoins } from '../utils/spotCoins'; // Importa a função de moedas do mercado Spot
 import { IoAnalytics } from "react-icons/io5";
 
-const Analyze = () => {
+const SpotAnalyze = () => {
   const [coins, setCoins] = useState([]);
   const [selectedCoin, setSelectedCoin] = useState('');
   const [trendData, setTrendData] = useState(null);
@@ -17,11 +17,11 @@ const Analyze = () => {
   useEffect(() => {
     const loadCoins = async () => {
       try {
-        const coinList = await fetchFuturesCoins();
+        const coinList = await fetchSpotCoins(); // Busca as moedas do mercado Spot
         setCoins(coinList);
       } catch (err) {
-        console.error('Erro ao buscar moedas de futuros:', err);
-        setError('Failed to fetch futures coin list. Please try again.');
+        console.error('Erro ao buscar moedas de Spot:', err);
+        setError('Failed to fetch spot coin list. Please try again.');
       }
     };
 
@@ -40,7 +40,7 @@ const Analyze = () => {
 
       // Busca dados dos últimos 60 minutos
       const minuteResponse = await axios.get(
-        `https://fapi.binance.com/fapi/v1/klines`,
+        `https://api.binance.com/api/v3/klines`, // Endpoint do mercado Spot
         {
           params: {
             symbol: coinSymbol,
@@ -74,7 +74,7 @@ const Analyze = () => {
 
       // Busca dados das últimas 24 horas
       const dailyResponse = await axios.get(
-        `https://fapi.binance.com/fapi/v1/klines`,
+        `https://api.binance.com/api/v3/klines`, // Endpoint do mercado Spot
         {
           params: {
             symbol: coinSymbol,
@@ -113,7 +113,7 @@ const Analyze = () => {
   return (
     <div className="bg-dark text-white rounded container p-5 my-5">
       <h2 className="text-center">
-        <IoAnalytics /> Analyze Crypto Trends by Search (USD-M Futures)
+        <IoAnalytics /> Analyze Crypto Trends by Search (Spot Market)
       </h2>
 
       <div className="mb-3">
@@ -156,4 +156,4 @@ const Analyze = () => {
   );
 };
 
-export default Analyze;
+export default SpotAnalyze;

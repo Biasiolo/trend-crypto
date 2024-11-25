@@ -1,10 +1,10 @@
-// CryptoTrend.jsx
+// SpotTrend.jsx
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { fetchFuturesCoins } from '../utils/futuresCoins';
+import { fetchSpotCoins } from '../utils/spotCoins'; // Função para moedas do mercado Spot
 
-const CryptoTrend = () => {
+const SpotTrend = () => {
   const [coins, setCoins] = useState([]);
   const [topGainers, setTopGainers] = useState([]);
   const [topLosers, setTopLosers] = useState([]);
@@ -13,15 +13,15 @@ const CryptoTrend = () => {
   const [isRefreshDisabled, setIsRefreshDisabled] = useState(false);
   const [lastUpdated, setLastUpdated] = useState('');
 
-  // Função para carregar a lista de moedas do mercado futuro
+  // Função para carregar a lista de moedas do mercado Spot
   useEffect(() => {
     const loadCoins = async () => {
       try {
-        const coinList = await fetchFuturesCoins();
+        const coinList = await fetchSpotCoins(); // Usa a função para buscar moedas do mercado Spot
         setCoins(coinList);
       } catch (err) {
-        console.error('Erro ao buscar moedas de futuros:', err);
-        setError('Failed to fetch futures coin list. Please try again.');
+        console.error('Erro ao buscar moedas de Spot:', err);
+        setError('Failed to fetch spot coin list. Please try again.');
       }
     };
 
@@ -37,7 +37,7 @@ const CryptoTrend = () => {
       const responses = await Promise.all(
         coins.map(async (coin) => {
           const response = await axios.get(
-            `https://fapi.binance.com/fapi/v1/klines`,
+            `https://api.binance.com/api/v3/klines`, // Endpoint do mercado Spot
             {
               params: {
                 symbol: coin.symbol,
@@ -92,7 +92,7 @@ const CryptoTrend = () => {
 
   return (
     <div className="container mt-5">
-      <h2 className="text-center">Top 10 Crypto Trends (USD-M Futures - Last 30 min)</h2>
+      <h2 className="text-center">Top 10 Crypto Trends (Spot Market - Last 30 min)</h2>
       <button
         className="btn btn-info mb-3"
         onClick={handleRefreshClick}
@@ -145,4 +145,4 @@ const CryptoTrend = () => {
   );
 };
 
-export default CryptoTrend;
+export default SpotTrend;
