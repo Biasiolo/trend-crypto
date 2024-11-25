@@ -133,7 +133,7 @@ const HomePage = () => {
                 {/* Botão para copiar */}
                 <button
                   className="btn btn-outline-dark btn-sm"
-                  onClick={() => navigator.clipboard.writeText("0x1234567890abcdef1234567890abcdef12345678")}
+                  onClick={() => navigator.clipboard.writeText("0x3b4ee1071c93fb1af20e883cb6dc46867e1dd20d")}
                 >
                   Copy Address
                 </button>
