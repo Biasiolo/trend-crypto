@@ -90,7 +90,7 @@ const HomePage = () => {
       </div>
 
       {/* Descrição do site */}
-      <div className="bg-secondary-subtle text-dark text-center mt- p-4 rounded">
+      <div className="bg-secondary-subtle text-dark text-center mt- p-4 rounded-bottom">
         <h2 className="text-info-emphasis">Quick Analysis and Decisions!</h2>
         <p className="bannertext px-3">
           Trend Crypto is your essential tool for fast decision-making in cryptocurrency trading. Powered by real-time data from Binance, we help you track market movements, analyze gains and losses, and stay updated with the latest crypto trends. Our tools include top trends from the last 30 minutes, general rankings based on the current daily close, and detailed individual analyses to give you the edge in a fast-moving market.
