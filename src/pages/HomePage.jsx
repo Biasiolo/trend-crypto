@@ -8,6 +8,8 @@ import Analyze from '../components/Analyze';
 import SpotTrend from '../components/SpotTrend';
 import SpotRanking from '../components/SpotRanking';
 import SpotAnalyze from '../components/SpotAnalyze';
+import SpotFive from '../components/SpotFive';
+import FutureFive from '../components/FutureFive';
 import CryptoNews from '../components/CryptoNews';
 import { SiTether } from "react-icons/si";
 import { FaEthereum } from "react-icons/fa";
@@ -46,6 +48,7 @@ const HomePage = () => {
             <Ranking />
             <Analyze />
             <CryptoTrend />
+            <FutureFive />
           </div>
         );
       case 'spot':
@@ -54,6 +57,7 @@ const HomePage = () => {
             <SpotRanking />
             <SpotAnalyze />
             <SpotTrend />
+            <SpotFive />
           </div>
         );
       case 'news':
