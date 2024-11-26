@@ -93,6 +93,7 @@ const CryptoTrend = () => {
   return (
     <div className="container bg-light my-5 py-3 border rounded">
       <h2 className="text-center mt-3">Top 10 Crypto Trends (USD-M Futures - Last 30 min)</h2>
+      <hr></hr>
       <button
         className="btn btn-info my-3"
         onClick={handleRefreshClick}

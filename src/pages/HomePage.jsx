@@ -29,8 +29,8 @@ const HomePage = () => {
 
   // Temporizadores para exibir o modal
   useEffect(() => {
-    const firstTimer = setTimeout(() => setShowDonationModal(true), 30000); // 45 segundos
-    const recurringTimer = setInterval(() => setShowDonationModal(true), 600000); // 
+    const firstTimer = setTimeout(() => setShowDonationModal(true), 30000); // 30 segundos
+    const recurringTimer = setInterval(() => setShowDonationModal(true), 900000); // 
 
     return () => {
       clearTimeout(firstTimer);
@@ -95,6 +95,7 @@ const HomePage = () => {
         <p className="bannertext px-3">
           Trend Crypto is your essential tool for fast decision-making in cryptocurrency trading. Powered by real-time data from Binance, we help you track market movements, analyze gains and losses, and stay updated with the latest crypto trends. Our tools include top trends from the last 30 minutes, general rankings based on the current daily close, and detailed individual analyses to give you the edge in a fast-moving market.
         </p>
+        <hr></hr>
         {/* Vantagens do site */}
         <div className="mt-4">
           <div className="row text-center alig-items-center rounded">
@@ -130,7 +131,7 @@ const HomePage = () => {
 
 
       {/* Botões de navegação */}
-      <div className="d-flex justify-content-center gap-3 my-5">
+      <div className="d-flex justify-content-center gap-3 mt-5">
         <button
           className={`btn btn-outline-dark flex-grow-1  ${activeComponent === 'futures' ? 'active' : ''}`}
           style={{ maxWidth: '200px' }}
@@ -152,6 +153,7 @@ const HomePage = () => {
         >
           Cryptos News
         </button>
+        
       </div>
 
       {/* Renderização com transição */}
@@ -209,7 +211,21 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Footer */}
+      <div className="text-center mb-5">
+      <a
+        href="https://www.producthunt.com/posts/trend-crypto?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-trend&#0045;crypto"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=652332&theme=dark"
+          alt="Trend Crypto - Real-time cryptocurrency analysis | Product Hunt"
+          style={{ width: "250px", height: "54px" }}
+        />
+      </a>
+    </div>
+
+
       {/* Footer */}
 <footer className="bg-dark text-white mt-4 p-4 rounded-top">
   <div className="container">
