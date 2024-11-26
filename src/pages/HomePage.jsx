@@ -114,7 +114,7 @@ const HomePage = () => {
             <div className="col-md-3 col-sm-6">
               <div className="p-3">
                 <h5 className="text-info-emphasis"><FaMoneyBillTrendUp /> Top Trends</h5>
-                <p className="text-dark mb-0">Track the biggest movers in the last 30 minutes and current day</p>
+                <p className="text-dark mb-0">Track the biggest movers in the last 5 min, 30 min and current day</p>
               </div>
             </div>
             <div className="col-md-3 col-sm-6">
