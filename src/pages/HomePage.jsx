@@ -77,7 +77,7 @@ const HomePage = () => {
     <div className="container mt-0">
       {/* Header com Link para Home */}
       <div
-        className="header bg-dark text-white text-center p-5 mt-0 rounded-bottom"
+        className="header bg-dark text-white text-center p-5 mt-0 rounded"
         style={{ cursor: 'pointer' }}
         onClick={() => setActiveComponent('futures')}
       >
