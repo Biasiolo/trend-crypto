@@ -47,8 +47,9 @@ const HomePage = () => {
           <div key="futures">
             <Ranking />
             <Analyze />
-            <CryptoTrend />
             <FutureFive />
+            <CryptoTrend />
+            
           </div>
         );
       case 'spot':
@@ -56,8 +57,9 @@ const HomePage = () => {
           <div key="spot">
             <SpotRanking />
             <SpotAnalyze />
-            <SpotTrend />
             <SpotFive />
+            <SpotTrend />
+            
           </div>
         );
       case 'news':
