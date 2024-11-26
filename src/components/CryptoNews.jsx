@@ -64,7 +64,7 @@ const CryptoNews = () => {
   };
 
   return (
-    <div className="container my-5">
+    <div className="container bg-light my-5 py-3 border rounded">
         <div>
   <h2 className="text-center fs-1 mb-4">Latest Cryptos News</h2>
   <p className="text-center fs-5 mb-5 text-muted">
@@ -113,7 +113,7 @@ const CryptoNews = () => {
 
 
       {/* Lista de Notícias */}
-      <div className="row">
+      <div className="row px-3">
         {currentNews.map((article, index) => (
           <div key={index} className="col-md-4 mb-4">
             <div className="card h-100">

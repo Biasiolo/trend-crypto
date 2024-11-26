@@ -91,8 +91,8 @@ const SpotTrend = () => {
   };
 
   return (
-    <div className="container my-5 pt-3">
-      <h2 className="text-center">Top 10 Crypto Trends (Spot Market - Last 5 min)</h2>
+    <div className="container bg-light mt-5 py-3 border rounded">
+      <h2 className="text-center mt-3">Top 10 Crypto Trends (Spot Market - Last 5 min)</h2>
       <button
         className="btn btn-info my-3"
         onClick={handleRefreshClick}
@@ -107,7 +107,7 @@ const SpotTrend = () => {
       {loading && <div className="alert alert-info mt-3">Loading...</div>}
       {error && <div className="alert alert-danger mt-3">{error}</div>}
 
-      <div className="row mb-5">
+      <div className="row mb-3">
         <div className="mt-4 col-md-6">
           <h4>Top 10 Gainers</h4>
           <ul className="list-group">

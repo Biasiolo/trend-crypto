@@ -74,10 +74,10 @@ const HomePage = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container mt-0">
       {/* Header com Link para Home */}
       <div
-        className="header bg-dark text-white text-center mt-3 p-4 rounded"
+        className="header bg-dark text-white text-center p-5 mt-0 rounded-bottom"
         style={{ cursor: 'pointer' }}
         onClick={() => setActiveComponent('futures')}
       >
@@ -90,7 +90,7 @@ const HomePage = () => {
       </div>
 
       {/* Descrição do site */}
-      <div className="bg-secondary-subtle text-dark text-center mt-4 p-4 rounded">
+      <div className="bg-secondary-subtle text-dark text-center mt- p-4 rounded">
         <h2 className="text-info-emphasis">Quick Analysis and Decisions!</h2>
         <p className="bannertext px-3">
           Trend Crypto is your essential tool for fast decision-making in cryptocurrency trading. Powered by real-time data from Binance, we help you track market movements, analyze gains and losses, and stay updated with the latest crypto trends. Our tools include top trends from the last 30 minutes, general rankings based on the current daily close, and detailed individual analyses to give you the edge in a fast-moving market.
@@ -211,7 +211,7 @@ const HomePage = () => {
 
       {/* Footer */}
       {/* Footer */}
-<footer className="bg-dark text-white mt-4 p-4 rounded">
+<footer className="bg-dark text-white mt-4 p-4 rounded-top">
   <div className="container">
     <div className="row">
       {/* About Trend Crypto */}

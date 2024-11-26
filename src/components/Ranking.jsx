@@ -89,8 +89,8 @@ const Ranking = () => {
   };
 
   return (
-    <div className="container my-5 pb-3">
-      <h2 className="text-center">General Market Ranking (USD-M Futures - Current daily close)</h2>
+    <div className="container bg-light my-5 pb-3 border rounded">
+      <h2 className="text-center mt-3">General Market Ranking (USD-M Futures - Current daily close)</h2>
       <button
         className="btn btn-info my-3"
         onClick={handleRefreshClick}
