@@ -58,10 +58,18 @@ const SpotAnalyze = () => {
       const highestPrice = Math.max(...highPrices);
       const lowestPrice = Math.min(...lowPrices);
 
+      const highestIndex = highPrices.indexOf(highestPrice);
+      const lowestIndex = lowPrices.indexOf(lowestPrice);
+
       const openPrice = parseFloat(minuteData[0][1]);
       const closePrice = parseFloat(minuteData[minuteData.length - 1][4]);
       const percentageChange = ((closePrice - openPrice) / openPrice) * 100;
       const currentPrice = closePrice.toFixed(4);
+
+      // Lógica para definir o percentual com base na ordem de maior/menor preço
+      const highLowPercentageChange =
+        ((highestPrice - lowestPrice) / lowestPrice) *
+        (highestIndex > lowestIndex ? 1 : -1);
 
       const dailyResponse = await axios.get(
         `https://api.binance.com/api/v3/klines`,
@@ -105,6 +113,7 @@ const SpotAnalyze = () => {
         highestPrice,
         lowestPrice,
         percentageChange: percentageChange.toFixed(2),
+        highLowPercentageChange: highLowPercentageChange.toFixed(2),
         currentPrice,
       });
       setDailyChange(dailyPercentageChange.toFixed(2));
@@ -153,7 +162,8 @@ const SpotAnalyze = () => {
               <h4 className="card-title text-info fw-bold">Last 60 Minutes Trend</h4>
               <p>Highest Price: <span className="fw-bold">${trendData.highestPrice.toFixed(4)}</span></p>
               <p>Lowest Price: <span className="fw-bold">${trendData.lowestPrice.toFixed(4)}</span></p>
-              <p>Percentage Change: <span className="fw-bold text-info">{trendData.percentageChange}%</span></p>
+              <p>High-Low Percentage Change: <span className="fw-bold text-info">{trendData.highLowPercentageChange}%</span></p>
+              <p>Overall Percentage Change: <span className="fw-bold text-info">{trendData.percentageChange}%</span></p>
             </div>
           </div>
 
