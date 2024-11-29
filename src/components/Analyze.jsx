@@ -131,7 +131,7 @@ const Analyze = () => {
   return (
     <div className="bg-dark text-white rounded container p-5 my-5">
       <h2 className="text-center mb-4">
-        <IoAnalytics className="me-2" /> Analyze Trends ({selectedCoin || "Select a coin"})
+        <IoAnalytics className="me-2" /> Analyze Trends Future ({selectedCoin || "Select a coin"})
       </h2>
 
       <div className="mb-4">
