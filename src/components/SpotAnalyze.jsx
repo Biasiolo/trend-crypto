@@ -183,6 +183,7 @@ const SpotAnalyze = () => {
           <div className="card bg-secondary text-white shadow-sm mb-4">
             <div className="card-body">
               <h4 className="card-title text-info fw-bold">24-Hour Trend</h4>
+              <p>Current Price: <span className="fw-bold">${trendData.currentPrice}</span></p>
               <p>Daily Change: <span className="fw-bold text-info">{dailyChange}%</span></p>
             </div>
           </div>
