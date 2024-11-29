@@ -258,7 +258,7 @@ const HomePage = () => {
           <li>
             <button
               className="btn btn-link text-white"
-              onClick={() => setActiveComponent('futures')}
+              onClick={() => handleNavigation('futures')}
             >
               USD-M Futures
             </button>
@@ -266,7 +266,7 @@ const HomePage = () => {
           <li>
             <button
               className="btn btn-link text-white"
-              onClick={() => setActiveComponent('spot')}
+              onClick={() => handleNavigation('spot')}
             >
               Spot Market
             </button>
@@ -274,7 +274,7 @@ const HomePage = () => {
           <li>
             <button
               className="btn btn-link text-white"
-              onClick={() => setActiveComponent('news')}
+              onClick={() => handleNavigation('crypto-news')}
             >
               Crypto News
             </button>
