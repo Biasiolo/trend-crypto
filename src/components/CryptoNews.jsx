@@ -114,7 +114,7 @@ const CryptoNews = () => {
 
 
       {/* Lista de Notícias */}
-      <div className="row px-3">
+      <div className="row mt-5 px-3">
         {currentNews.map((article, index) => (
           <div key={index} className="col-md-4 mb-4">
             <div className="card h-100">

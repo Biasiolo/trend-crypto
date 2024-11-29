@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SiBitcoin } from "react-icons/si";
 import { SiBitcoincash } from "react-icons/si";
 import CryptoTrend from '../components/CryptoTrend';
@@ -22,10 +23,13 @@ import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import { PiCoinVertical } from "react-icons/pi";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import FuturesVolumeVariation from '../components/FutureVolumeVariation';
+import SpotVolumeVariation from '../components/SpotVolumeVariation';
 
 const HomePage = () => {
   const [activeComponent, setActiveComponent] = useState('futures'); // Estado para o componente ativo
   const [showDonationModal, setShowDonationModal] = useState(false); // Estado para o modal de doação
+   const navigate = useNavigate();
 
   // Temporizadores para exibir o modal
   useEffect(() => {
@@ -40,6 +44,11 @@ const HomePage = () => {
 
   const handleCloseModal = () => setShowDonationModal(false);
 
+  const handleNavigation = (section) => {
+    setActiveComponent(section);
+    navigate(`/${section === '' ? '' : section}`); // Atualiza a URL
+  };
+
   const renderComponent = () => {
     switch (activeComponent) {
       case 'futures':
@@ -49,6 +58,7 @@ const HomePage = () => {
             <Analyze />
             <FutureFive />
             <CryptoTrend />
+            <FuturesVolumeVariation />
             
           </div>
         );
@@ -59,12 +69,14 @@ const HomePage = () => {
             <SpotAnalyze />
             <SpotFive />
             <SpotTrend />
+            <SpotVolumeVariation />
+            
             
           </div>
         );
-      case 'news':
+      case 'crypto-news':
         return (
-          <div key="news">
+          <div key="crypto-news">
             <CryptoNews />
           </div>
         );
@@ -135,21 +147,21 @@ const HomePage = () => {
         <button
           className={`btn btn-outline-dark flex-grow-1  ${activeComponent === 'futures' ? 'active' : ''}`}
           style={{ maxWidth: '200px' }}
-          onClick={() => setActiveComponent('futures')}
+          onClick={() => handleNavigation('futures')}
         >
           USD-M Futures
         </button>
         <button
           className={`btn btn-outline-dark flex-grow-1 ${activeComponent === 'spot' ? 'active' : ''}`}
           style={{ maxWidth: '200px' }}
-          onClick={() => setActiveComponent('spot')}
+          onClick={() => handleNavigation('spot')}
         >
           Spot Market
         </button>
         <button
-          className={`btn btn-outline-dark flex-grow-1 ${activeComponent === 'news' ? 'active' : ''}`}
+          className={`btn btn-outline-dark flex-grow-1 ${activeComponent === '-crypto-news' ? 'active' : ''}`}
           style={{ maxWidth: '200px' }}
-          onClick={() => setActiveComponent('news')}
+          onClick={() => handleNavigation('crypto-news')}
         >
           Cryptos News
         </button>
@@ -270,7 +282,7 @@ const HomePage = () => {
         </ul>
       </div>
 
-      
+
 
       {/* Contact */}
       <div className="col-md-3 mb-3 text-center">

@@ -10,7 +10,9 @@ const Analyze = () => {
   const [coins, setCoins] = useState([]);
   const [selectedCoin, setSelectedCoin] = useState('');
   const [trendData, setTrendData] = useState(null);
-  const [dailyChange, setDailyChange] = useState(null); // Armazena o percentual do dia
+  const [dailyChange, setDailyChange] = useState(null);
+  const [weeklyChange, setWeeklyChange] = useState(null);
+  const [weeklyVolume, setWeeklyVolume] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -59,18 +61,10 @@ const Analyze = () => {
       const highestPrice = Math.max(...highPrices);
       const lowestPrice = Math.min(...lowPrices);
 
-      const highestIndex = highPrices.indexOf(highestPrice); // Índice do maior preço
-      const lowestIndex = lowPrices.indexOf(lowestPrice); // Índice do menor preço
-
       const openPrice = parseFloat(minuteData[0][1]);
       const closePrice = parseFloat(minuteData[minuteData.length - 1][4]);
       const percentageChange = ((closePrice - openPrice) / openPrice) * 100;
       const currentPrice = closePrice.toFixed(4);
-
-      // Lógica para definir o percentual com base na ordem de maior/menor preço
-      const highLowPercentageChange =
-        ((highestPrice - lowestPrice) / lowestPrice) *
-        (highestIndex > lowestIndex ? 1 : -1);
 
       // Busca dados das últimas 24 horas
       const dailyResponse = await axios.get(
@@ -79,24 +73,48 @@ const Analyze = () => {
           params: {
             symbol: coinSymbol,
             interval: '1d',
-            limit: 1, // Últimos 2 dias para calcular variação diária
+            limit: 1,
           },
         }
       );
 
       const dailyData = dailyResponse.data;
-      const dailyOpenPrice = parseFloat(dailyData[0][1]); // Preço de abertura do dia
-      const dailyClosePrice = parseFloat(dailyData[dailyData.length - 1][4]); // Preço de fechamento atual
+      const dailyOpenPrice = parseFloat(dailyData[0][1]);
+      const dailyClosePrice = parseFloat(dailyData[0][4]);
       const dailyPercentageChange = ((dailyClosePrice - dailyOpenPrice) / dailyOpenPrice) * 100;
+
+      // Busca dados da última semana
+      const weeklyResponse = await axios.get(
+        `https://fapi.binance.com/fapi/v1/klines`,
+        {
+          params: {
+            symbol: coinSymbol,
+            interval: '1d',
+            limit: 7,
+          },
+        }
+      );
+
+      const weeklyData = weeklyResponse.data;
+      const weeklyOpenPrice = parseFloat(weeklyData[0][1]);
+      const weeklyClosePrice = parseFloat(weeklyData[weeklyData.length - 1][4]);
+      const weeklyPercentageChange = ((weeklyClosePrice - weeklyOpenPrice) / weeklyOpenPrice) * 100;
+
+      const weeklyVolumeUSD = weeklyData.reduce((acc, day) => {
+        const dailyVolume = parseFloat(day[5]);
+        const averagePrice = (parseFloat(day[2]) + parseFloat(day[3])) / 2;
+        return acc + dailyVolume * averagePrice;
+      }, 0);
 
       setTrendData({
         highestPrice,
         lowestPrice,
-        highLowPercentageChange: highLowPercentageChange.toFixed(2), // Percentual com base na ordem
         percentageChange: percentageChange.toFixed(2),
         currentPrice,
       });
       setDailyChange(dailyPercentageChange.toFixed(2));
+      setWeeklyChange(weeklyPercentageChange.toFixed(2));
+      setWeeklyVolume(weeklyVolumeUSD.toFixed(2));
     } catch (err) {
       setError('Error fetching data. Please try again.');
       console.error(err);
@@ -112,11 +130,11 @@ const Analyze = () => {
 
   return (
     <div className="bg-dark text-white rounded container p-5 my-5">
-      <h2 className="text-center">
-        <IoAnalytics /> Analyze Crypto Trends by Search (USD-M Futures)
+      <h2 className="text-center mb-4">
+        <IoAnalytics className="me-2" /> Analyze Trends ({selectedCoin || "Select a coin"})
       </h2>
 
-      <div className="mb-3">
+      <div className="mb-4">
         <label htmlFor="cryptoSearch" className="form-label">
           Search and Select Cryptocurrency
         </label>
@@ -125,7 +143,7 @@ const Analyze = () => {
           id="cryptoSearch"
           options={coinOptions}
           onChange={(selectedOption) => {
-            setSelectedCoin(selectedOption.value);
+            setSelectedCoin(selectedOption.label); // Atualiza com o nome da moeda para exibição
             fetchTrendData(selectedOption.value);
           }}
           isSearchable={true}
@@ -135,18 +153,30 @@ const Analyze = () => {
 
       {trendData && (
         <div className="mt-5 text-center">
-          <h4>Trend Data for last 60 minutes ({selectedCoin})</h4>
-          <p>Highest Price (60m): ${trendData.highestPrice.toFixed(4)}</p>
-          <p>Lowest Price (60m): ${trendData.lowestPrice.toFixed(4)}</p>
-                    
-          <p className="fs-5 mb-5 text-info fw-bold">
-            Percentage Change (60m): {trendData.percentageChange}%
-          </p>
-          <h4>Trend Data for last 24h ({selectedCoin})</h4>
-          <p>Current Price: ${trendData.currentPrice}</p>
-          <p className="fs-5 mb-1 text-info fw-bold">
-            Daily Percentage Change (24h): {dailyChange}%
-          </p>
+          <div className="card bg-secondary text-white shadow-sm mb-4">
+            <div className="card-body">
+              <h4 className="card-title text-info fw-bold">Last 60 Minutes Trend</h4>
+              <p>Highest Price: <span className="fw-bold">${trendData.highestPrice.toFixed(4)}</span></p>
+              <p>Lowest Price: <span className="fw-bold">${trendData.lowestPrice.toFixed(4)}</span></p>
+              <p>Percentage Change: <span className="fw-bold text-info">{trendData.percentageChange}%</span></p>
+            </div>
+          </div>
+
+          <div className="card bg-secondary text-white shadow-sm mb-4">
+            <div className="card-body">
+              <h4 className="card-title text-info fw-bold">24-Hour Trend</h4>
+              <p>Current Price: <span className="fw-bold">${trendData.currentPrice}</span></p>
+              <p>Daily Change: <span className="fw-bold text-info">{dailyChange}%</span></p>
+            </div>
+          </div>
+
+          <div className="card bg-secondary text-white shadow-sm">
+            <div className="card-body">
+              <h4 className="card-title text-info fw-bold">Weekly Trend</h4>
+              <p>Weekly Change Price: <span className="fw-bold text-info">{weeklyChange}%</span></p>
+              <p>Weekly Volume (USD): <span className="fw-bold">${weeklyVolume}</span></p>
+            </div>
+          </div>
         </div>
       )}
 
