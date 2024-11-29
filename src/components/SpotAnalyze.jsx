@@ -4,6 +4,7 @@ import axios from 'axios';
 import Select from 'react-select';
 import { fetchSpotCoins } from '../utils/spotCoins';
 import { IoAnalytics } from "react-icons/io5";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 const SpotAnalyze = () => {
   const [coins, setCoins] = useState([]);
@@ -71,6 +72,10 @@ const SpotAnalyze = () => {
         ((highestPrice - lowestPrice) / lowestPrice) *
         (highestIndex > lowestIndex ? 1 : -1);
 
+      // Cálculo de variação percentual entre o preço inicial (60 minutos antes) e o preço atual
+      const startPrice = parseFloat(minuteData[0][1]);
+      const priceChangePercent = ((closePrice - startPrice) / startPrice) * 100;
+
       const dailyResponse = await axios.get(
         `https://api.binance.com/api/v3/klines`,
         {
@@ -112,8 +117,9 @@ const SpotAnalyze = () => {
       setTrendData({
         highestPrice,
         lowestPrice,
-        percentageChange: percentageChange.toFixed(2),
         highLowPercentageChange: highLowPercentageChange.toFixed(2),
+        percentageChange: percentageChange.toFixed(2),
+        priceChangePercent: priceChangePercent.toFixed(2),
         currentPrice,
       });
       setDailyChange(dailyPercentageChange.toFixed(2));
@@ -162,15 +168,21 @@ const SpotAnalyze = () => {
               <h4 className="card-title text-info fw-bold">Last 60 Minutes Trend</h4>
               <p>Highest Price: <span className="fw-bold">${trendData.highestPrice.toFixed(4)}</span></p>
               <p>Lowest Price: <span className="fw-bold">${trendData.lowestPrice.toFixed(4)}</span></p>
-              <p>High-Low Percentage Change: <span className="fw-bold text-info">{trendData.highLowPercentageChange}%</span></p>
-              <p>Overall Percentage Change: <span className="fw-bold text-info">{trendData.percentageChange}%</span></p>
+              <p>Current Price: <span className="fw-bold">${trendData.currentPrice}</span></p>
+              <p className="text-info fs-5 fw-bold">
+                Price Change (60m):{' '}
+                <span className={`fw-bold bg-light rounded p-2 ${trendData.priceChangePercent >= 0 ? 'text-success' : 'text-danger'}`}>
+                  {trendData.priceChangePercent}%
+                  {trendData.priceChangePercent >= 0 ? <FaArrowUp className="ms-2" /> : <FaArrowDown className="ms-2" />}
+                </span>
+              </p>
             </div>
           </div>
 
+          {/* Retém as análises diárias e semanais */}
           <div className="card bg-secondary text-white shadow-sm mb-4">
             <div className="card-body">
               <h4 className="card-title text-info fw-bold">24-Hour Trend</h4>
-              <p>Current Price: <span className="fw-bold">${trendData.currentPrice}</span></p>
               <p>Daily Change: <span className="fw-bold text-info">{dailyChange}%</span></p>
             </div>
           </div>

@@ -5,6 +5,7 @@ import axios from 'axios';
 import Select from 'react-select';
 import { fetchFuturesCoins } from '../utils/futuresCoins';
 import { IoAnalytics } from "react-icons/io5";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 const Analyze = () => {
   const [coins, setCoins] = useState([]);
@@ -40,7 +41,6 @@ const Analyze = () => {
       setError('');
       setLoading(true);
 
-      // Busca dados dos últimos 60 minutos
       const minuteResponse = await axios.get(
         `https://fapi.binance.com/fapi/v1/klines`,
         {
@@ -54,7 +54,6 @@ const Analyze = () => {
 
       const minuteData = minuteResponse.data;
 
-      // Calcula maior e menor preço nos últimos 60 minutos
       const highPrices = minuteData.map((candle) => parseFloat(candle[2]));
       const lowPrices = minuteData.map((candle) => parseFloat(candle[3]));
 
@@ -74,7 +73,10 @@ const Analyze = () => {
         ((highestPrice - lowestPrice) / lowestPrice) *
         (highestIndex > lowestIndex ? 1 : -1);
 
-      // Busca dados das últimas 24 horas
+      // Cálculo de variação percentual entre o preço inicial (60 minutos atrás) e o preço atual
+      const startPrice = parseFloat(minuteData[0][1]);
+      const priceChangePercent = ((closePrice - startPrice) / startPrice) * 100;
+
       const dailyResponse = await axios.get(
         `https://fapi.binance.com/fapi/v1/klines`,
         {
@@ -91,7 +93,6 @@ const Analyze = () => {
       const dailyClosePrice = parseFloat(dailyData[0][4]);
       const dailyPercentageChange = ((dailyClosePrice - dailyOpenPrice) / dailyOpenPrice) * 100;
 
-      // Busca dados da última semana
       const weeklyResponse = await axios.get(
         `https://fapi.binance.com/fapi/v1/klines`,
         {
@@ -117,9 +118,10 @@ const Analyze = () => {
       setTrendData({
         highestPrice,
         lowestPrice,
-        percentageChange: percentageChange.toFixed(2),
-        currentPrice,
         highLowPercentageChange: highLowPercentageChange.toFixed(2),
+        percentageChange: percentageChange.toFixed(2),
+        priceChangePercent: priceChangePercent.toFixed(2),
+        currentPrice,
       });
       setDailyChange(dailyPercentageChange.toFixed(2));
       setWeeklyChange(weeklyPercentageChange.toFixed(2));
@@ -167,8 +169,14 @@ const Analyze = () => {
               <h4 className="card-title text-info fw-bold">Last 60 Minutes Trend</h4>
               <p>Highest Price: <span className="fw-bold">${trendData.highestPrice.toFixed(4)}</span></p>
               <p>Lowest Price: <span className="fw-bold">${trendData.lowestPrice.toFixed(4)}</span></p>
-              <p>High-Low Percentage Change: <span className="fw-bold text-info">{trendData.highLowPercentageChange}%</span></p>
-              <p>Overall Percentage Change: <span className="fw-bold text-info">{trendData.percentageChange}%</span></p>
+              <p>Current Price: <span className="fw-bold">${trendData.currentPrice}</span></p>
+              <p className="text-info fs-5 fw-bold">
+                Price Change (60m):{' '}
+                <span className={`fw-bold bg-light rounded p-2 ${trendData.priceChangePercent >= 0 ? 'text-success' : 'text-danger'}`}>
+                  {trendData.priceChangePercent}%
+                  {trendData.priceChangePercent >= 0 ? <FaArrowUp className="ms-2" /> : <FaArrowDown className="ms-2" />}
+                </span>
+              </p>
             </div>
           </div>
 
@@ -183,8 +191,9 @@ const Analyze = () => {
           <div className="card bg-secondary text-white shadow-sm">
             <div className="card-body">
               <h4 className="card-title text-info fw-bold">Weekly Trend</h4>
-              <p>Weekly Change Price: <span className="fw-bold text-info">{weeklyChange}%</span></p>
               <p>Weekly Volume (USD): <span className="fw-bold">${weeklyVolume}</span></p>
+              <p>Weekly Change Price: <span className="fw-bold text-info">{weeklyChange}%</span></p>
+              
             </div>
           </div>
         </div>
