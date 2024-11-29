@@ -34,6 +34,8 @@ const CryptoTrend = () => {
       setError('');
       setLoading(true);
 
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       const responses = await Promise.all(
         coins.map(async (coin) => {
           const response = await axios.get(
