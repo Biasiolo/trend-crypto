@@ -191,6 +191,9 @@ const HomePage = () => {
               <p>
                 This website was an independent development. Help us keep Trend Crypto free and ad-free. Your donations support development, new features, and hosting costs.
               </p>
+              <h6>
+              If you make money, donate and help us improve!
+                </h6>
               <div className="bg-secondary-subtle rounded text-dark p-2 align-items-center justify-content-center text-center fw-bold">
 
 
