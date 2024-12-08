@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://trendcrypto.pro/sitemap.xml
