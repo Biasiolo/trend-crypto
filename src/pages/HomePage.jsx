@@ -188,13 +188,15 @@ const HomePage = () => {
               <button type="button" className="btn-close" onClick={handleCloseModal}></button>
             </div>
             <div className="modal-body text-center">
-              <p>
-                This website was an independent development. Help us keep Trend Crypto free and ad-free. Your donations support development, new features, and hosting costs.
+              <p className="px-5">
+              Thank you for using Trend Crypto! Your support helps us keep this platform free, ad-free, and full of powerful features to help you stay ahead in the crypto world.
+If Trend Crypto has helped you make better trades or stay informed, consider making a donation to help us grow. Every contribution, big or small, fuels new tools, features, and ensures we stay online for everyone.
               </p>
               <h6>
-              If you make money, donate and help us improve!
+              💡 Your support matters! Together, we can make Trend Crypto even better.
+<p>We appreciate!</p>
                 </h6>
-              <div className="bg-secondary-subtle rounded text-dark p-2 align-items-center justify-content-center text-center fw-bold">
+              <div className="bg-light rounded text-dark align-items-center justify-content-center text-center fw-bold">
 
 
                 <h3 className="fs-4 p-2">Donate</h3>
@@ -202,7 +204,7 @@ const HomePage = () => {
                 <p className="m-0">Network: BSC BNB Smart Chain (BEP20)</p>
 
                 <br />
-                <p className=" key text-dark ">
+                <p className=" key text-dark w-100">
                   0x3b4ee1071c93fb1af20e883cb6dc46867e1dd20d
                 </p>
                 {/* Botão para copiar */}
