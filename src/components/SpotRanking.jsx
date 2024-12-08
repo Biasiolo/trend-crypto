@@ -91,7 +91,7 @@ const SpotRanking = () => {
 
   return (
     <div className="container bg-light my-5 pb-3 border rounded">
-      <h2 className="text-center mt-3">General Market Ranking (Spot Market - Current daily close)</h2>
+      <h2 className="text-center mt-3 fw-bold">General Market Ranking (Spot Market - Current daily close)</h2>
       <hr></hr>
       <button
         className="btn btn-info my-3"

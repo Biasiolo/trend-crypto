@@ -108,7 +108,7 @@ const FuturesVolumeVariation = () => {
 
   return (
     <div className="container bg-light my-5 py-3 border rounded">
-      <h2 className="text-center mt-3">Future Volume $ Variation (Last 15 Minutes)</h2>
+      <h2 className="text-center mt-3 fw-bold">Future Volume $ Variation (Last 15 Minutes)</h2>
       <hr />
       <button
         className="btn btn-info my-3"

@@ -140,7 +140,7 @@ const SpotAnalyze = () => {
 
   return (
     <div className="bg-dark text-white rounded container p-5 my-5">
-      <h2 className="text-center mb-4">
+      <h2 className="text-center mb-4 display-6 fw-bold">
         <IoAnalytics className="me-2" /> Analyze Trends Spot ({selectedCoin || "Select a coin"})
       </h2>
 

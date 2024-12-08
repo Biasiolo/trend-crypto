@@ -109,7 +109,7 @@ const SpotVolumeVariation = () => {
 
   return (
     <div className="container bg-light my-5 py-3 border rounded">
-      <h2 className="text-center mt-3">Spot Volume $ Variation (Last 15 Minutes)</h2>
+      <h2 className="text-center mt-3 fw-bold">Spot Volume $ Variation (Last 15 Minutes)</h2>
       <hr />
       <button
         className="btn btn-info my-3"

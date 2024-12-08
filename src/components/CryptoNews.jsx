@@ -66,7 +66,7 @@ const CryptoNews = () => {
   return (
     <div className="container bg-light my-5 py-3 border rounded">
         <div>
-  <h2 className="text-center fs-1 mb-4">Latest Cryptos News</h2>
+  <h2 className="text-center fs-1 mb-4 fw-bold">Latest Cryptos News</h2>
   <hr></hr>
   <p className="text-center fs-5 mb-5 text-muted">
     Stay ahead in the crypto world with the latest updates and trends. Explore what´s moving the market right now!

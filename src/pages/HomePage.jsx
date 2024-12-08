@@ -34,7 +34,7 @@ const HomePage = () => {
   // Temporizadores para exibir o modal
   useEffect(() => {
     const firstTimer = setTimeout(() => setShowDonationModal(true), 30000); // 30 segundos
-    const recurringTimer = setInterval(() => setShowDonationModal(true), 900000); // 
+    const recurringTimer = setInterval(() => setShowDonationModal(true), 1000000); // 
 
     return () => {
       clearTimeout(firstTimer);
@@ -93,7 +93,7 @@ const HomePage = () => {
         style={{ cursor: 'pointer' }}
         onClick={() => setActiveComponent('futures')}
       >
-        <h1>
+        <h1 className='display-5 fw-bold'>
           <SiBitcoincash className="me-2" />
           Trend Crypto
           <SiBitcoin className="ms-2" />
@@ -103,7 +103,7 @@ const HomePage = () => {
 
       {/* Descrição do site */}
       <div className="bg-secondary-subtle text-dark text-center mt- p-4 rounded-bottom">
-        <h2 className="text-info-emphasis">Quick Analysis and Decisions!</h2>
+        <h2 className="text-info-emphasis fw-bold">Quick Analysis and Decisions!</h2>
         <p className="bannertext px-3">
           Trend Crypto is your essential tool for fast decision-making in cryptocurrency trading. Powered by real-time data from Binance, we help you track market movements, analyze gains and losses, and stay updated with the latest crypto trends. Our tools include top trends from the last 30 minutes, general rankings based on the current daily close, and detailed individual analyses to give you the edge in a fast-moving market.
         </p>
@@ -113,25 +113,25 @@ const HomePage = () => {
           <div className="row text-center alig-items-center rounded">
             <div className="col-md-3 col-sm-6">
               <div className="p-3">
-                <h5 className="text-info-emphasis"><LuNewspaper /> Latest News</h5>
+                <h5 className="text-info-emphasis fw-bold"><LuNewspaper /> Latest News</h5>
                 <p className="text-dark mb-0">Stay updated with the latest cryptocurrency news</p>
               </div>
             </div>
             <div className="col-md-3 col-sm-6">
               <div className="p-3">
-                <h5 className="text-info-emphasis"><TbBrandGoogleAnalytics /> Spot & Futures</h5>
+                <h5 className="text-info-emphasis fw-bold"><TbBrandGoogleAnalytics /> Spot & Futures</h5>
                 <p className="text-dark mb-0">Analyze the Spot and Futures markets effortlessly</p>
               </div>
             </div>
             <div className="col-md-3 col-sm-6">
               <div className="p-3">
-                <h5 className="text-info-emphasis"><FaMoneyBillTrendUp /> Top Trends</h5>
+                <h5 className="text-info-emphasis fw-bold"><FaMoneyBillTrendUp /> Top Trends</h5>
                 <p className="text-dark mb-0">Track the biggest movers in the last 5 min, 30 min and current day</p>
               </div>
             </div>
             <div className="col-md-3 col-sm-6">
               <div className="p-3">
-                <h5 className="text-info-emphasis"><PiCoinVertical /> Individual Analysis</h5>
+                <h5 className="text-info-emphasis fw-bold"><PiCoinVertical /> Individual Analysis</h5>
                 <p className="text-dark mb-0">Get detailed performance insights for each currency</p>
               </div>
             </div>
@@ -143,23 +143,23 @@ const HomePage = () => {
 
 
       {/* Botões de navegação */}
-      <div className="d-flex justify-content-center gap-3 mt-5">
+      <div className="d-flex justify-content-center gap-3 mt-5 ">
         <button
-          className={`btn btn-outline-dark flex-grow-1  ${activeComponent === 'futures' ? 'active' : ''}`}
+          className={`btn btn-outline-dark flex-grow-1 fs-5 fw-bold ${activeComponent === 'futures' ? 'active' : ''}`}
           style={{ maxWidth: '200px' }}
           onClick={() => handleNavigation('futures')}
         >
           USD-M Futures
         </button>
         <button
-          className={`btn btn-outline-dark flex-grow-1 ${activeComponent === 'spot' ? 'active' : ''}`}
+          className={`btn btn-outline-dark flex-grow-1 fs-5 fw-bold ${activeComponent === 'spot' ? 'active' : ''}`}
           style={{ maxWidth: '200px' }}
           onClick={() => handleNavigation('spot')}
         >
           Spot Market
         </button>
         <button
-          className={`btn btn-outline-dark flex-grow-1 ${activeComponent === '-crypto-news' ? 'active' : ''}`}
+          className={`btn btn-outline-dark flex-grow-1 fs-5 fw-bold ${activeComponent === '-crypto-news' ? 'active' : ''}`}
           style={{ maxWidth: '200px' }}
           onClick={() => handleNavigation('crypto-news')}
         >
@@ -180,15 +180,15 @@ const HomePage = () => {
       </TransitionGroup>
 
       {/* Modal de Doação */}
-      <div className={`modal fade modal-lg ${showDonationModal ? 'show d-block' : ''}`} tabIndex="-1">
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content bg-dark text-white">
+      <div className={`modal fade modal-xl ${showDonationModal ? 'show d-block' : ''}`} tabIndex="-1">
+        <div className="modal-dialog modal-dialog-centered ">
+          <div className="modal-content bg-dark text-white border border-light">
             <div className="modal-header">
               <h5 className="modal-title text-info">Support Trend Crypto</h5>
-              <button type="button" className="btn-close" onClick={handleCloseModal}></button>
+              <button type="button" className="btn-close bg-light" onClick={handleCloseModal}></button>
             </div>
             <div className="modal-body text-center">
-              <p className="px-5">
+              <p className="px-2">
               Thank you for using Trend Crypto! Your support helps us keep this platform free, ad-free, and full of powerful features to help you stay ahead in the crypto world.
 If Trend Crypto has helped you make better trades or stay informed, consider making a donation to help us grow. Every contribution, big or small, fuels new tools, features, and ensures we stay online for everyone.
               </p>
@@ -196,7 +196,7 @@ If Trend Crypto has helped you make better trades or stay informed, consider mak
               💡 Your support matters! Together, we can make Trend Crypto even better.
 <p>We appreciate!</p>
                 </h6>
-              <div className="bg-light rounded text-dark align-items-center justify-content-center text-center fw-bold">
+              <div className="bg-body-tertiary rounded text-dark align-items-center justify-content-center text-center fw-bold">
 
 
                 <h3 className="fs-4 p-2">Donate</h3>
@@ -209,7 +209,7 @@ If Trend Crypto has helped you make better trades or stay informed, consider mak
                 </p>
                 {/* Botão para copiar */}
                 <button
-                  className="bg-info btn btn-outline-dark btn-sm mb-3"
+                  className="bg-info btn btn-sm mb-3 fw-bold"
                   onClick={() => navigator.clipboard.writeText("0x3b4ee1071c93fb1af20e883cb6dc46867e1dd20d")}
                 >
                   Copy Address
@@ -218,7 +218,7 @@ If Trend Crypto has helped you make better trades or stay informed, consider mak
 
             </div>
             <div className="modal-footer">
-              <a target="_blank" href="https://buy.stripe.com/eVa9BUdCL7uG6NqfZ0"><button className="btn btn-info">Donate with Stripe</button></a>
+              <a target="_blank" href="https://buy.stripe.com/eVa9BUdCL7uG6NqfZ0"><button className="btn btn-info fw-bold">Donate with Stripe</button></a>
 
               <button className="btn btn-secondary" onClick={handleCloseModal}>
                 Close
@@ -227,6 +227,26 @@ If Trend Crypto has helped you make better trades or stay informed, consider mak
           </div>
         </div>
       </div>
+
+
+  {/* Convite para Notícias */}
+  <div className="bg-dark text-white text-center py-5 rounded shadow-sm mb-5">
+    <h2 className="display-6 fw-bold">
+      Stay Informed with the Latest Crypto News! 📰
+    </h2>
+    <p className="mt-3 fs-4">
+      Don&apos;t miss out on the latest updates and trends shaping the crypto world.
+    </p>
+    <a 
+      href="#crypto-news" 
+      className="btn btn-outline-info btn-lg mt-4"
+      onClick={() => handleNavigation('crypto-news')}
+    >
+      Explore Crypto News
+    </a>
+  </div>
+
+
 
       <div className="text-center mb-5">
       <a
